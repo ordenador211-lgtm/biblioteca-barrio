@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca de Barrio - Práctica</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; line-height: 1.6; color: #333; }
+        h1 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        h2 { color: #34495e; margin-top: 30px; }
+        code { background: #f4f4f4; padding: 2px 6px; border-radius: 4px; font-family: monospace; }
+        pre { background: #f4f4f4; padding: 15px; border-radius: 6px; overflow-x: auto; }
+        ul { background: #f8f9fa; padding: 20px 20px 20px 40px; border-radius: 6px; }
+    </style>
+</head>
+<body>
+
+    <h1>📚 Biblioteca de Barrio - Aplicación de Gestión</h1>
+    <p>Práctica de arquitectura de software orientada a componentes en Python.</p>
+
+    <h2>⚙️ Estructura de Componentes</h2>
+    <ul>
+        <li><code>catalogo.py</code>: Gestión de libros, ejemplares múltiples y reservas.</li>
+        <li><code>socios.py</code>: Control de socios, estados y sanciones.</li>
+        <li><code>prestamos.py</code>: Lógica de préstamos aplicando reglas de negocio y caducidad.</li>
+        <li><code>main.py</code>: Interfaz de consola para la interacción con el usuario.</li>
+    </ul>
+
+    <h2>🔒 Reglas de Negocio Implementadas</h2>
+    <ul>
+        <li>Límite máximo de 2 libros prestados por socio.</li>
+        <li>Caducidad de préstamos a los 7 días.</li>
+        <li>Control de socios sancionados.</li>
+        <li>Gestión individual de ejemplares por cada título.</li>
+    </ul>
+
+    <h2>📈 Diagrama de Dependencias</h2>
+    <pre>
+    main.py ──> (prestamos.py, catalogo.py, socios.py)
+    prestamos.py ──> (catalogo.py, socios.py) [mediante funciones públicas]
+    </pre>
+
+</body>
+</html>
