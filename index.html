@@ -1,166 +1,329 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Biblioteca de Barrio - Práctica de Arquitectura</title>
-    <style>
-        :root {
-            --primary: #2563eb;
-            --bg-color: #f8fafc;
-            --card-bg: #ffffff;
-            --text-main: #1e293b;
-            --text-muted: #64748b;
-            --border: #e2e8f0;
-        }
-        body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 40px 20px;
-            line-height: 1.6;
-        }
-        header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-        h1 {
-            color: var(--primary);
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-        .subtitle {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-        }
-        .card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 30px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-        }
-        h2 {
-            font-size: 1.4rem;
-            margin-top: 0;
-            color: var(--text-main);
-            border-bottom: 2px solid var(--border);
-            padding-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-        }
-        th, td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid var(--border);
-        }
-        th {
-            background-color: #f1f5f9;
-            color: var(--text-main);
-            font-weight: 600;
-        }
-        code {
-            background: #eff6ff;
-            color: var(--primary);
-            padding: 3px 8px;
-            border-radius: 6px;
-            font-family: monospace;
-            font-weight: 600;
-        }
-        ul {
-            padding-left: 20px;
-        }
-        li {
-            margin-bottom: 10px;
-        }
-        .diagram-box {
-            background: #0f172a;
-            color: #38bdf8;
-            padding: 20px;
-            border-radius: 8px;
-            font-family: monospace;
-            white-space: pre-wrap;
-            overflow-x: auto;
-            font-size: 0.95rem;
-            line-height: 1.5;
-        }
-        footer {
-            text-align: center;
-            margin-top: 50px;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Biblioteca de Barrio</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:wght@600;800&family=Nunito+Sans:wght@400;600;700&display=swap">
+<style>
+:root{--bg:#f4f6f3;--surface:#fff;--ink:#1d2b3a;--muted:#5d6b78;--line:#dde3df;--brand:#1f4f5a;--brand-ink:#fff;--ok:#2e7d5b;--warn:#b7791f;--bad:#b5473a;--soft:#e8efec;color-scheme:light}
+@media (prefers-color-scheme:dark){:root{--bg:#141b21;--surface:#1c262e;--ink:#e8eef1;--muted:#98a6b1;--line:#2c3a45;--brand:#5fb3c2;--brand-ink:#0f1a1f;--ok:#5fc596;--warn:#e0a94a;--bad:#e5806f;--soft:#24323c;color-scheme:dark}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Nunito Sans",system-ui,sans-serif}
+h1,h2,h3{font-family:Bitter,Georgia,serif;line-height:1.2;margin:0}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+header{background:var(--brand);color:var(--brand-ink);padding:28px 0 0}
+header h1{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800}
+header p{margin:6px 0 18px;opacity:.85;max-width:60ch}
+nav{display:flex;gap:4px;overflow-x:auto}
+nav button{background:transparent;border:0;color:inherit;opacity:.75;font:inherit;font-weight:700;padding:12px 18px;cursor:pointer;border-radius:10px 10px 0 0;white-space:nowrap}
+nav button[aria-selected=true]{background:var(--bg);color:var(--ink);opacity:1}
+nav button:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--warn);outline-offset:2px}
+main{padding:26px 0 60px}
+section[hidden]{display:none}
+.bar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:20px}
+.bar .grow{flex:1;min-width:200px}
+input,select{font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 12px;width:100%}
+label{font-size:.85rem;color:var(--muted);font-weight:700;display:block;margin-bottom:4px}
+.btn{font:inherit;font-weight:700;border:1px solid var(--brand);background:var(--brand);color:var(--brand-ink);padding:9px 16px;border-radius:8px;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--brand)}
+.btn.small{padding:6px 12px;font-size:.88rem}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px}
+.book{background:var(--surface);border:1px solid var(--line);border-left:10px solid var(--c);border-radius:6px 12px 12px 6px;padding:16px 16px 14px;display:flex;flex-direction:column;gap:10px}
+.book h3{font-size:1.1rem}
+.book .autor{color:var(--muted);margin:0;font-size:.92rem}
+.copies{display:flex;gap:6px;flex-wrap:wrap}
+.chip{font-size:.78rem;font-weight:700;padding:3px 9px;border-radius:99px;border:1px solid currentColor}
+.chip.disponible{color:var(--ok)}.chip.prestado{color:var(--bad)}.chip.reservado{color:var(--warn)}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto}
+.note{font-size:.85rem;color:var(--muted)}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:20px}
+.two{display:grid;grid-template-columns:minmax(0,320px) minmax(0,1fr);gap:20px;align-items:start}
+@media(max-width:760px){.two{grid-template-columns:1fr}}
+.tablewrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.95rem}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:middle}
+th{color:var(--muted);font-size:.85rem}
+.tag{font-size:.8rem;font-weight:700;padding:2px 9px;border-radius:99px;background:var(--soft)}
+.tag.bad{color:var(--bad)}.tag.ok{color:var(--ok)}.tag.warn{color:var(--warn)}
+.empty{color:var(--muted);padding:24px;text-align:center;border:1px dashed var(--line);border-radius:12px}
+.clock{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:.9rem;color:var(--muted)}
+#toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:12px 18px;border-radius:10px;max-width:90vw;box-shadow:0 8px 24px rgba(0,0,0,.25);z-index:9}
+#toast[hidden]{display:none}
+svg text{font-family:"Nunito Sans",sans-serif;font-size:15px;font-weight:700;fill:var(--ink)}
+svg .node{fill:var(--soft);stroke:var(--brand);stroke-width:2}
+svg .arrow{stroke:var(--brand);stroke-width:2;fill:none}
+svg .head{fill:var(--brand)}
+.decision{border-left:6px solid var(--warn)}
+ul.rules{padding-left:20px;margin:8px 0 0}
+</style>
 </head>
 <body>
+<header>
+  <div class="wrap">
+    <h1>Biblioteca de Barrio</h1>
+    <p>Busca libros, date de alta como socio y pide prestado sin pasar por el mostrador.</p>
+    <nav role="tablist" aria-label="Secciones">
+      <button role="tab" data-tab="catalogo" aria-selected="true">Catálogo</button>
+      <button role="tab" data-tab="socios" aria-selected="false">Socios</button>
+      <button role="tab" data-tab="prestamos" aria-selected="false">Préstamos</button>
+      <button role="tab" data-tab="arquitectura" aria-selected="false">Arquitectura</button>
+    </nav>
+  </div>
+</header>
 
-    <header>
-        <h1>📚 Biblioteca de Barrio</h1>
-        <p class="subtitle">Práctica de arquitectura de software orientada a componentes en Python</p>
-    </header>
+<main class="wrap">
+  <section id="catalogo">
+    <div class="bar">
+      <div class="grow"><label for="q">Buscar por título</label><input id="q" type="search" placeholder="Por ejemplo: Quijote"></div>
+      <div class="grow"><label for="socioActivo">Pedir como</label><select id="socioActivo"></select></div>
+    </div>
+    <div id="libros" class="grid"></div>
+  </section>
 
-    <section class="card">
-        <h2>⚙️ Estructura de Componentes</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Componente</th>
-                    <th>Descripción de Responsabilidades</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><code>catalogo.py</code></td>
-                    <td>Gestión de libros, control de ejemplares múltiples y sistema de reservas.</td>
-                </tr>
-                <tr>
-                    <td><code>socios.py</code></td>
-                    <td>Control de identidad de socios, estados y gestión de sanciones.</td>
-                </tr>
-                <tr>
-                    <td><code>prestamos.py</code></td>
-                    <td>Lógica de negocio de préstamos, caducidad a 7 días y comunicación por funciones públicas.</td>
-                </tr>
-                <tr>
-                    <td><code>main.py</code></td>
-                    <td>Interfaz de consola para la interacción fluida con el usuario.</td>
-                </tr>
-            </tbody>
-        </table>
-    </section>
+  <section id="socios" hidden>
+    <div class="two">
+      <form class="panel" id="formSocio">
+        <h2 style="font-size:1.2rem;margin-bottom:14px">Nuevo socio</h2>
+        <label for="nombre">Nombre completo</label>
+        <input id="nombre" required minlength="2" maxlength="60" autocomplete="off">
+        <p><button class="btn" type="submit">Dar de alta</button></p>
+      </form>
+      <div class="panel tablewrap">
+        <h2 style="font-size:1.2rem;margin-bottom:10px">Socios</h2>
+        <table><thead><tr><th>Nº</th><th>Nombre</th><th>Libros</th><th>Estado</th></tr></thead><tbody id="tablaSocios"></tbody></table>
+      </div>
+    </div>
+  </section>
 
-    <section class="card">
-        <h2>🔒 Reglas de Negocio Implementadas</h2>
-        <ul>
-            <li><strong>Límite estricto:</strong> Ningún socio puede tener más de 2 libros prestados simultáneamente.</li>
-            <li><strong>Caducidad:</strong> Cada préstamo expira automáticamente a los 7 días.</li>
-            <li><strong>Ejemplares múltiples:</strong> Cada título cuenta con varios ejemplares gestionados de forma individual.</li>
-            <li><strong>Sanciones y Reservas:</strong> Los socios sancionados no pueden pedir libros, y se pueden reservar títulos agotados.</li>
-        </ul>
-    </section>
+  <section id="prestamos" hidden>
+    <div class="panel">
+      <div class="clock">
+        <strong>Hoy: <span id="hoy"></span></strong>
+        <button class="btn ghost small" id="mas1">+1 día</button>
+        <button class="btn ghost small" id="mas8">+8 días</button>
+        <button class="btn ghost small" id="resetReloj">Volver al día real</button>
+        <span class="note">Avanza el reloj para ver caducidades y sanciones.</span>
+      </div>
+    </div>
+    <div class="panel tablewrap">
+      <h2 style="font-size:1.2rem;margin-bottom:10px">Préstamos activos</h2>
+      <div id="tablaPrestamos"></div>
+    </div>
+    <p><button class="btn ghost small" id="resetTodo">Restaurar datos de ejemplo</button></p>
+  </section>
 
-    <section class="card">
-        <h2>📈 Diagrama de Dependencias</h2>
-        <div class="diagram-box">
-main.py 
- ├──> prestamos.py ──> (catalogo.py, socios.py) [vía funciones públicas]
- ├──> catalogo.py
- └──> socios.py
-        </div>
-    </section>
+  <section id="arquitectura" hidden>
+    <div class="panel">
+      <h2 style="font-size:1.2rem;margin-bottom:10px">Diagrama de dependencias</h2>
+      <div class="tablewrap">
+      <svg viewBox="0 0 560 330" role="img" aria-label="main depende de prestamos, catalogo y socios; prestamos depende de catalogo y socios" style="width:100%;min-width:480px;max-width:640px;display:block;margin:auto">
+        <defs><marker id="ah" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="head"/></marker></defs>
+        <rect class="node" x="220" y="10" width="120" height="44" rx="10"/><text x="280" y="38" text-anchor="middle">main</text>
+        <rect class="node" x="220" y="130" width="120" height="44" rx="10"/><text x="280" y="158" text-anchor="middle">prestamos</text>
+        <rect class="node" x="40" y="270" width="120" height="44" rx="10"/><text x="100" y="298" text-anchor="middle">catalogo</text>
+        <rect class="node" x="400" y="270" width="120" height="44" rx="10"/><text x="460" y="298" text-anchor="middle">socios</text>
+        <line class="arrow" x1="280" y1="54" x2="280" y2="128" marker-end="url(#ah)"/>
+        <line class="arrow" x1="228" y1="54" x2="110" y2="268" marker-end="url(#ah)"/>
+        <line class="arrow" x1="332" y1="54" x2="450" y2="268" marker-end="url(#ah)"/>
+        <line class="arrow" x1="244" y1="174" x2="150" y2="268" marker-end="url(#ah)"/>
+        <line class="arrow" x1="316" y1="174" x2="410" y2="268" marker-end="url(#ah)"/>
+      </svg>
+      </div>
+      <p class="note">Cada flecha significa «usa las funciones públicas de». Catalogo y Socios no dependen de nadie.</p>
+    </div>
+    <div class="panel decision">
+      <h2 style="font-size:1.2rem;margin-bottom:8px">Diario: petición del cliente</h2>
+      <p>No lo hago: si Prestamos leyera directamente la lista de libros de Catalogo, quedaría atado a cómo Catalogo guarda sus datos y cualquier cambio interno lo rompería. Es mejor que use obtener(id) y buscar(titulo), porque así cada componente puede cambiar por dentro sin afectar a los demás.</p>
+    </div>
+    <div class="panel">
+      <h2 style="font-size:1.2rem">Reglas de negocio</h2>
+      <ul class="rules">
+        <li>Un socio no puede tener más de 2 libros a la vez.</li>
+        <li>Cada préstamo caduca a los 7 días. Devolver tarde supone 7 días de sanción.</li>
+        <li>Cada título tiene varios ejemplares, cada uno con su propio estado.</li>
+        <li>Un socio sancionado no puede pedir libros.</li>
+        <li>Se pueden reservar libros que no tienen ningún ejemplar libre.</li>
+      </ul>
+    </div>
+  </section>
+</main>
+<div id="toast" hidden role="status"></div>
 
-    <footer>
-        <p>Desarrollado para la práctica de Programación Modular y Componentes.</p>
-    </footer>
+<script>
+"use strict";
+const DAY = 86400000, KEY = "biblioteca-barrio-v1";
+let estado = null, offset = 0;
+const ahora = () => Date.now() + offset * DAY;
+const fecha = t => new Date(t).toLocaleDateString("es-ES", {day:"2-digit", month:"short"});
 
+/* ---------- Datos iniciales y persistencia ---------- */
+function semilla() {
+  const L = (id, titulo, autor, n, c) => ({id, titulo, autor, color:c,
+    ejemplares: Array.from({length:n}, (_, i) => ({n:i+1, estado:"disponible", para:null})), reservas:[]});
+  return {
+    libros: [
+      L(1,"Don Quijote de la Mancha","Miguel de Cervantes",3,"#b5473a"),
+      L(2,"Cien años de soledad","Gabriel García Márquez",2,"#2f5d8a"),
+      L(3,"La sombra del viento","Carlos Ruiz Zafón",1,"#7a5c99"),
+      L(4,"1984","George Orwell",2,"#2e7d5b"),
+      L(5,"El principito","Antoine de Saint-Exupéry",3,"#c8922e"),
+      L(6,"Rayuela","Julio Cortázar",1,"#1f4f5a")],
+    socios: [{id:1,nombre:"Ana Morales",sancionHasta:0},{id:2,nombre:"Luis Prieto",sancionHasta:0}],
+    prestamos: [], sigSocio:3, sigPrestamo:1
+  };
+}
+function cargar() { try { const s = localStorage.getItem(KEY); if (s) return JSON.parse(s); } catch(e){} return semilla(); }
+function guardar() { try { localStorage.setItem(KEY, JSON.stringify({estado, offset})); } catch(e){} }
+(function init(){ try { const s = JSON.parse(localStorage.getItem(KEY)); if (s && s.estado) { estado = s.estado; offset = s.offset || 0; } } catch(e){} if (!estado) estado = semilla(); })();
+
+/* ---------- Componente Catalogo ---------- */
+const Catalogo = {
+  buscar(titulo) { const t = titulo.trim().toLowerCase(); return estado.libros.filter(l => l.titulo.toLowerCase().includes(t) || l.autor.toLowerCase().includes(t)); },
+  obtener(id) { return estado.libros.find(l => l.id === id) || null; },
+  hayLibre(id) { const l = this.obtener(id); return !!l && l.ejemplares.some(e => e.estado === "disponible"); },
+  marcarPrestado(id, socioId) {
+    const l = this.obtener(id); if (!l) return null;
+    const e = l.ejemplares.find(x => x.estado === "reservado" && x.para === socioId) || l.ejemplares.find(x => x.estado === "disponible");
+    if (!e) return null;
+    e.estado = "prestado"; e.para = null; return e.n;
+  },
+  marcarDevuelto(id, n) {
+    const l = this.obtener(id), e = l.ejemplares.find(x => x.n === n);
+    const siguiente = l.reservas.shift();
+    if (siguiente) { e.estado = "reservado"; e.para = siguiente; return siguiente; }
+    e.estado = "disponible"; e.para = null; return null;
+  },
+  reservar(id, socioId) {
+    const l = this.obtener(id);
+    if (l.reservas.includes(socioId)) return false;
+    l.reservas.push(socioId); return true;
+  }
+};
+
+/* ---------- Componente Socios ---------- */
+const Socios = {
+  alta(nombre) { const s = {id: estado.sigSocio++, nombre: nombre.trim(), sancionHasta: 0}; estado.socios.push(s); return s; },
+  obtener(id) { return estado.socios.find(s => s.id === id) || null; },
+  listar() { return estado.socios; },
+  estaSancionado(id) { const s = this.obtener(id); return !!s && s.sancionHasta > ahora(); },
+  sancionar(id, dias) { this.obtener(id).sancionHasta = ahora() + dias * DAY; }
+};
+
+/* ---------- Componente Prestamos (solo usa funciones públicas) ---------- */
+const Prestamos = {
+  MAX: 2, DIAS: 7,
+  activos(socioId) { return estado.prestamos.filter(p => !p.devuelto && (socioId == null || p.socioId === socioId)); },
+  validar(socioId, libroId) {
+    const s = Socios.obtener(socioId), l = Catalogo.obtener(libroId);
+    if (!s) return "Elige primero un socio.";
+    if (!l) return "El libro no existe.";
+    if (Socios.estaSancionado(socioId)) return s.nombre + " está sancionado hasta el " + fecha(s.sancionHasta) + ".";
+    return null;
+  },
+  prestar(socioId, libroId) {
+    const error = this.validar(socioId, libroId);
+    if (error) return {ok:false, msg:error};
+    if (this.activos(socioId).length >= this.MAX) return {ok:false, msg:"Ya tiene " + this.MAX + " libros. Debe devolver uno antes."};
+    if (this.activos(socioId).some(p => p.libroId === libroId)) return {ok:false, msg:"Ya tiene un ejemplar de este título."};
+    const n = Catalogo.marcarPrestado(libroId, socioId);
+    if (n === null) return {ok:false, msg:"No hay ejemplares libres. Puedes reservarlo."};
+    const inicio = ahora();
+    estado.prestamos.push({id: estado.sigPrestamo++, libroId, ejemplar:n, socioId, inicio, vence: inicio + this.DIAS * DAY, devuelto:false});
+    return {ok:true, msg:"Préstamo hecho. Vence el " + fecha(inicio + this.DIAS * DAY) + "."};
+  },
+  devolver(id) {
+    const p = estado.prestamos.find(x => x.id === id); if (!p || p.devuelto) return {ok:false, msg:"Préstamo no encontrado."};
+    p.devuelto = true;
+    let msg = "Libro devuelto.";
+    if (ahora() > p.vence) { Socios.sancionar(p.socioId, 7); msg += " Llegó tarde: 7 días de sanción."; }
+    const para = Catalogo.marcarDevuelto(p.libroId, p.ejemplar);
+    if (para) { const s = Socios.obtener(para); msg += " Reservado para " + (s ? s.nombre : "otro socio") + "."; }
+    return {ok:true, msg};
+  },
+  reservar(socioId, libroId) {
+    const error = this.validar(socioId, libroId);
+    if (error) return {ok:false, msg:error};
+    if (Catalogo.hayLibre(libroId)) return {ok:false, msg:"Hay ejemplares libres: pídelo directamente."};
+    if (!Catalogo.reservar(libroId, socioId)) return {ok:false, msg:"Ya tiene este título reservado."};
+    return {ok:true, msg:"Reserva anotada. Te lo guardamos cuando se devuelva."};
+  }
+};
+
+/* ---------- main: interfaz ---------- */
+const $ = s => document.querySelector(s);
+const esc = t => String(t).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+let toastT;
+function aviso(msg) { const t = $("#toast"); t.textContent = msg; t.hidden = false; clearTimeout(toastT); toastT = setTimeout(() => t.hidden = true, 3600); }
+function accion(r) { aviso(r.msg); guardar(); pintar(); }
+
+function pintarSelect() {
+  const sel = $("#socioActivo"), prev = sel.value;
+  sel.innerHTML = '<option value="">Elige un socio…</option>' + Socios.listar().map(s => `<option value="${s.id}">${esc(s.nombre)}</option>`).join("");
+  sel.value = prev;
+}
+function pintarCatalogo() {
+  const lista = Catalogo.buscar($("#q").value), sid = Number($("#socioActivo").value) || null;
+  $("#libros").innerHTML = lista.length ? lista.map(l => {
+    const libre = Catalogo.hayLibre(l.id), propia = sid && l.ejemplares.some(e => e.estado === "reservado" && e.para === sid);
+    const chips = l.ejemplares.map(e => `<span class="chip ${e.estado}">Ej. ${e.n}: ${e.estado}</span>`).join("");
+    return `<article class="book" style="--c:${l.color}">
+      <div><h3>${esc(l.titulo)}</h3><p class="autor">${esc(l.autor)}</p></div>
+      <div class="copies">${chips}</div>
+      ${l.reservas.length ? `<p class="note">${l.reservas.length} reserva(s) en espera</p>` : ""}
+      <div class="row">
+        <button class="btn small" data-prestar="${l.id}" ${(libre || propia) ? "" : "disabled"}>Pedir prestado</button>
+        <button class="btn ghost small" data-reservar="${l.id}" ${libre ? "disabled" : ""}>Reservar</button>
+      </div></article>`;
+  }).join("") : '<div class="empty">No hay libros con ese título. Prueba con otra palabra.</div>';
+}
+function pintarSocios() {
+  $("#tablaSocios").innerHTML = Socios.listar().map(s => {
+    const sanc = Socios.estaSancionado(s.id);
+    return `<tr><td>${s.id}</td><td>${esc(s.nombre)}</td><td>${Prestamos.activos(s.id).length} / ${Prestamos.MAX}</td>
+      <td><span class="tag ${sanc ? "bad" : "ok"}">${sanc ? "Sancionado hasta " + fecha(s.sancionHasta) : "Al día"}</span></td></tr>`;
+  }).join("");
+}
+function pintarPrestamos() {
+  $("#hoy").textContent = fecha(ahora());
+  const a = Prestamos.activos();
+  $("#tablaPrestamos").innerHTML = a.length ? `<table><thead><tr><th>Libro</th><th>Socio</th><th>Vence</th><th></th></tr></thead><tbody>` +
+    a.map(p => {
+      const l = Catalogo.obtener(p.libroId), s = Socios.obtener(p.socioId), tarde = ahora() > p.vence;
+      return `<tr><td>${esc(l.titulo)} <span class="note">(ej. ${p.ejemplar})</span></td><td>${esc(s.nombre)}</td>
+        <td><span class="tag ${tarde ? "bad" : "ok"}">${fecha(p.vence)}${tarde ? " · caducado" : ""}</span></td>
+        <td><button class="btn ghost small" data-devolver="${p.id}">Devolver</button></td></tr>`;
+    }).join("") + "</tbody></table>" : '<div class="empty">No hay préstamos activos. Pide un libro desde el catálogo.</div>';
+}
+function pintar() { pintarSelect(); pintarCatalogo(); pintarSocios(); pintarPrestamos(); }
+
+/* eventos */
+document.querySelectorAll("nav button").forEach(b => b.addEventListener("click", () => {
+  document.querySelectorAll("nav button").forEach(x => x.setAttribute("aria-selected", x === b));
+  document.querySelectorAll("main section").forEach(s => s.hidden = s.id !== b.dataset.tab);
+}));
+$("#q").addEventListener("input", pintarCatalogo);
+$("#socioActivo").addEventListener("change", pintarCatalogo);
+$("#libros").addEventListener("click", e => {
+  const sid = Number($("#socioActivo").value) || null;
+  const p = e.target.closest("[data-prestar]"), r = e.target.closest("[data-reservar]");
+  if (p) accion(Prestamos.prestar(sid, Number(p.dataset.prestar)));
+  if (r) accion(Prestamos.reservar(sid, Number(r.dataset.reservar)));
+});
+$("#tablaPrestamos").addEventListener("click", e => { const d = e.target.closest("[data-devolver]"); if (d) accion(Prestamos.devolver(Number(d.dataset.devolver))); });
+$("#formSocio").addEventListener("submit", e => {
+  e.preventDefault();
+  const s = Socios.alta($("#nombre").value); $("#nombre").value = "";
+  guardar(); pintar(); $("#socioActivo").value = s.id; pintarCatalogo(); aviso("Socio dado de alta: " + s.nombre + " (nº " + s.id + ").");
+});
+$("#mas1").addEventListener("click", () => { offset += 1; guardar(); pintar(); });
+$("#mas8").addEventListener("click", () => { offset += 8; guardar(); pintar(); });
+$("#resetReloj").addEventListener("click", () => { offset = 0; guardar(); pintar(); });
+$("#resetTodo").addEventListener("click", () => { estado = semilla(); offset = 0; guardar(); pintar(); aviso("Datos de ejemplo restaurados."); });
+pintar();
+</script>
 </body>
 </html>
