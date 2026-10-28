@@ -1,44 +1,166 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Biblioteca de Barrio - Práctica</title>
+    <title>Biblioteca de Barrio - Práctica de Arquitectura</title>
     <style>
-        body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; line-height: 1.6; color: #333; }
-        h1 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h2 { color: #34495e; margin-top: 30px; }
-        code { background: #f4f4f4; padding: 2px 6px; border-radius: 4px; font-family: monospace; }
-        pre { background: #f4f4f4; padding: 15px; border-radius: 6px; overflow-x: auto; }
-        ul { background: #f8f9fa; padding: 20px 20px 20px 40px; border-radius: 6px; }
+        :root {
+            --primary: #2563eb;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+        }
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        h1 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+        h2 {
+            font-size: 1.4rem;
+            margin-top: 0;
+            color: var(--text-main);
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        th {
+            background-color: #f1f5f9;
+            color: var(--text-main);
+            font-weight: 600;
+        }
+        code {
+            background: #eff6ff;
+            color: var(--primary);
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-weight: 600;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        .diagram-box {
+            background: #0f172a;
+            color: #38bdf8;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            overflow-x: auto;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
     </style>
 </head>
 <body>
 
-    <h1>📚 Biblioteca de Barrio - Aplicación de Gestión</h1>
-    <p>Práctica de arquitectura de software orientada a componentes en Python.</p>
+    <header>
+        <h1>📚 Biblioteca de Barrio</h1>
+        <p class="subtitle">Práctica de arquitectura de software orientada a componentes en Python</p>
+    </header>
 
-    <h2>⚙️ Estructura de Componentes</h2>
-    <ul>
-        <li><code>catalogo.py</code>: Gestión de libros, ejemplares múltiples y reservas.</li>
-        <li><code>socios.py</code>: Control de socios, estados y sanciones.</li>
-        <li><code>prestamos.py</code>: Lógica de préstamos aplicando reglas de negocio y caducidad.</li>
-        <li><code>main.py</code>: Interfaz de consola para la interacción con el usuario.</li>
-    </ul>
+    <section class="card">
+        <h2>⚙️ Estructura de Componentes</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Componente</th>
+                    <th>Descripción de Responsabilidades</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>catalogo.py</code></td>
+                    <td>Gestión de libros, control de ejemplares múltiples y sistema de reservas.</td>
+                </tr>
+                <tr>
+                    <td><code>socios.py</code></td>
+                    <td>Control de identidad de socios, estados y gestión de sanciones.</td>
+                </tr>
+                <tr>
+                    <td><code>prestamos.py</code></td>
+                    <td>Lógica de negocio de préstamos, caducidad a 7 días y comunicación por funciones públicas.</td>
+                </tr>
+                <tr>
+                    <td><code>main.py</code></td>
+                    <td>Interfaz de consola para la interacción fluida con el usuario.</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
 
-    <h2>🔒 Reglas de Negocio Implementadas</h2>
-    <ul>
-        <li>Límite máximo de 2 libros prestados por socio.</li>
-        <li>Caducidad de préstamos a los 7 días.</li>
-        <li>Control de socios sancionados.</li>
-        <li>Gestión individual de ejemplares por cada título.</li>
-    </ul>
+    <section class="card">
+        <h2>🔒 Reglas de Negocio Implementadas</h2>
+        <ul>
+            <li><strong>Límite estricto:</strong> Ningún socio puede tener más de 2 libros prestados simultáneamente.</li>
+            <li><strong>Caducidad:</strong> Cada préstamo expira automáticamente a los 7 días.</li>
+            <li><strong>Ejemplares múltiples:</strong> Cada título cuenta con varios ejemplares gestionados de forma individual.</li>
+            <li><strong>Sanciones y Reservas:</strong> Los socios sancionados no pueden pedir libros, y se pueden reservar títulos agotados.</li>
+        </ul>
+    </section>
 
-    <h2>📈 Diagrama de Dependencias</h2>
-    <pre>
-    main.py ──> (prestamos.py, catalogo.py, socios.py)
-    prestamos.py ──> (catalogo.py, socios.py) [mediante funciones públicas]
-    </pre>
+    <section class="card">
+        <h2>📈 Diagrama de Dependencias</h2>
+        <div class="diagram-box">
+main.py 
+ ├──> prestamos.py ──> (catalogo.py, socios.py) [vía funciones públicas]
+ ├──> catalogo.py
+ └──> socios.py
+        </div>
+    </section>
+
+    <footer>
+        <p>Desarrollado para la práctica de Programación Modular y Componentes.</p>
+    </footer>
 
 </body>
 </html>
